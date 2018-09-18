@@ -16,12 +16,12 @@ int rand_number(){
 	return std::round(dis(gen));
 }
 
-void printboard(int board[25][25], int n, int m) //std::ofstream &ofs)
+void printboard(int board[18][18], int n, int m) //std::ofstream &ofs)
 {
 	int i, j;
-	for(i = 1; i < n+1; ++i)
+	for(i = 1; i < n+2; ++i)
 	{
-		for(j = 1; j < m+1; ++j)////AJEITAR PRA IR ATÉ m x n
+		for(j = 1; j < m+2; ++j)
 		{
 			cout<<board[i][j]<<' ';
 			//ofs << board[i][j];
@@ -30,11 +30,11 @@ void printboard(int board[25][25], int n, int m) //std::ofstream &ofs)
 	}
 
 }
-void zeraBoard(int board[25][25], int n, int m)
+void zeraBoard(int board[18][18], int n, int m)
 {	int i,j;
-	for(i = 0; i < 25; ++i)
+	for(i = 0; i < 18; ++i)
 	{
-		for(j = 0; j < 25; ++j)
+		for(j = 0; j < 18; ++j)
 		{
 			board[i][j] = 0; 
 			if (i==0)
@@ -63,7 +63,7 @@ void zeraBoard(int board[25][25], int n, int m)
 		}
 	}
 }
-void aondeehproibido(int mat[25][25],int n, int m) 
+void aondeehproibido(int mat[18][18],int n, int m) 
 {
 	int i,j;
 	for(i = 0; i < n+1; ++i)
@@ -84,7 +84,7 @@ void aondeehproibido(int mat[25][25],int n, int m)
 		}
 	}
 }
-void battleship(int board[25][25],int n, int m, int &counter)
+void battleship(int board[18][18],int n, int m, int &counter)
 {	
 	int p, q;
 	p = rand_number() % n;
@@ -145,7 +145,7 @@ void battleship(int board[25][25],int n, int m, int &counter)
 	aondeehproibido(board, n, m);
 }
 
-void cruiser(int board[25][25], int n, int m, int &counter)
+void cruiser(int board[18][18], int n, int m, int &counter)
 {
 	
 	int p,q;
@@ -206,7 +206,7 @@ void cruiser(int board[25][25], int n, int m, int &counter)
 
 
 
-void destroyer(int board[25][25], int n, int m, int &counter)
+void destroyer(int board[18][18], int n, int m, int &counter)
 {
 	
 	int p,q;
@@ -264,7 +264,7 @@ void destroyer(int board[25][25], int n, int m, int &counter)
 	aondeehproibido(board, n, m);
 }
 
-/*void submarine(int board[25][25], int n, int m, int &counter){
+void submarine(int board[18][18], int n, int m, int &counter){
 	
 	int p,q;
 	p = rand_number() % n+1 ;  //Gerando coordenadas aleatórias
@@ -317,9 +317,9 @@ void destroyer(int board[25][25], int n, int m, int &counter)
 		}
 	}
 	aondeehproibido(board, n, m);
-}*/
+}
 
-void submarine(int board[25][25], int n, int m, int &counter){
+void submarinerandom(int board[18][18], int n, int m, int &counter){
 	int x, y;
 	int c(0);//BURRO
 	int hv;
@@ -359,7 +359,7 @@ void submarine(int board[25][25], int n, int m, int &counter){
 		}
 	}
 }
-void versaoFinal(int board[25][25], int n, int m) /////////////////////////////////////////////////////////////////////////////////////////////////////////
+void versaoFinal(int board[18][18], int n, int m) /////////////////////////////////////////////////////////////////////////////////////////////////////////
 {
 	int i, j;
 	//3 = <
@@ -398,3 +398,97 @@ void versaoFinal(int board[25][25], int n, int m) //////////////////////////////
 	}
 
 }
+void printboard2(int board[18][18],int board2[18][18], int n, int m)
+{
+	int i, j;
+	for(i = 1; i < n+2; ++i)
+	{
+		for(j = 1; j < m+2; ++j)
+		{
+			if (i==n+1)
+			{
+				cout<<board2[i][j]<<' ';
+				continue;
+			}
+			if (j==m+1)
+			{
+				cout<<board2[i][j]<<' ';
+				continue;
+			}
+			if(board[i][j]==0)
+			{
+			cout<< '.' <<' ';
+			}
+			if(board[i][j]==1)
+			{
+			cout<< '*' <<' ';
+			}
+			if(board[i][j]==3)
+			{
+			cout<< '<' <<' ';
+			}
+			if(board[i][j]==4)
+			{
+			cout<< '>' <<' ';
+			}
+			if(board[i][j]==5)
+			{
+			cout<< '^' <<' ';
+			}
+			if(board[i][j]==6)
+			{
+			cout<< 'v' <<' ';
+			}
+			if(board[i][j]==7)
+			{
+			cout<< '~' <<' ';
+			}
+
+		}
+		cout<<'\n';
+	}
+
+}
+void igualarmatrzies(int board1[18][18],int board2[18][18], int n, int m)
+{
+	int k,l;
+		//copia de 2 para 1
+		for ( k=1 ; k < n+1 ; k++ )
+       	{
+           	 for ( l=1 ; l < m+1; l++ )
+           	 {
+           		board2[k][l] = board1[k][l];		
+       		 }
+       						 
+        }
+}
+void contadorDeBarcos(int board[18][18], int n, int m)
+{
+	int i,j;
+	int c=0;
+		for ( i=1 ; i < n+1 ; i++ )
+       	{
+           	for ( j=1 ; j < m+1; j++ )
+            {
+         		if(board[i][j]!=2 && board[i][j]!=0)
+           		{
+           			c++;
+           		}
+       		 }	 
+       	board[i][j]=c;
+       	c=0;
+        }
+        	for ( i=1 ; i < n+1 ; i++ )
+       		{
+           		for ( j=1 ; j < m+1; j++ )
+           	 	{
+           			if(board[j][i]!=2 && board[j][i]!=0)
+           			{
+           				c++;
+           			}
+       		 }	 
+       		 board[j][i]=c;
+       		 c=0;
+        }
+}
+
