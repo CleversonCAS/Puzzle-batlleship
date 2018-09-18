@@ -5,39 +5,38 @@
 #include "funbp.h"
 #include <vector>
 #include <fstream>
+#include <iomanip>
 using std::ofstream;
 using std::cout;
 using std::cin;
 using std::vector;
-using matrix = std::vector<vector<int>>;///////////////////////////////////////////////////////////////////////////////////////
+using matrix = std::vector<vector<int>>;
 #define TAM 18
-//OBS: tá imprimindo a borda do tabuleiro para ter noção doq ta contesendo, dps tira
-//OBS o barco grande tá sendo colocado lindamente em qualquer lugar , aparentemente sem erros,
-//acredito q pros outros barcos seje só trocar trocar os numeros...etc etc;
-//se digitado 15x15 dá um erro mas foda-se
-//colocar limite de n e m
+//
 int main()
 {	
-	int i, j,k,l, board[TAM][TAM],board2[TAM][TAM]; // LINHA, COLUNA E A MATRIZ DO BOARD.
+	int i, j,k,l, board[TAM][TAM],board2[TAM][TAM]; 
 	int p,q;
 	int n, m;
-	int x,cord1,cord2;
-	int num = 10;
-	zeraBoard(board2, n, m);
+	int x,cord1,cord2;//O que o jogador irá digitar em cada interação
+	int num = 100;
+	zeraBoard(board2, n, m);//zera o board do jogador
+	cout<<"Battleship Puzzle\nDigite o tamanho do board(Minimo 8x8  -  Máximo 15x15)\nPS:Apenas puzzles quadrados\n";
 	cin >> n >> m; 
-	vector< matrix > lista2( num, matrix( TAM, vector<int>(TAM) ) );
+	cout<<"\nUtilize os comandos\nX (cord1) (cord2)\nSendo X o tipo de barco (ex: 3 4 5 ('<'' na posição 4x5)\n";
+	cout<<"\n1 = *\n3 = <\n4 = >\n5 = ^\n6 = v\n7 = ~\n";
+	
+	vector< matrix > lista2( num, matrix( TAM, vector<int>(TAM) ) );//cria um Vector com capcidade de 100 matrizes e os coloca num arquivo
 	ofstream outFile;
 	outFile.open("teste.txt");
-	//zeraBoard(board, n , m);
-	//std::vector< int** > Ve;	
-	//zeraBoard(board, n, m);
-		for ( i = 0; i < num; ++i)
+	
+		for ( i = 0; i < num; ++i)//Produz 100 puzzles
 		{
 			
-			while(1)
+			while(1)//Continuará rodando Até encontrar um pozzle que siga as regras
 			{	
-			int counter = 0;
-			if(n >= 9 && m >= 9)
+			int counter = 0;//contador garante que o puzzle terá 20 barcos
+			if(n <= 9 && m <= 9)
 			{
 				zeraBoard(board, n, m);
 				battleship(board, n , m, counter);
@@ -65,25 +64,22 @@ int main()
 				submarine(board, n, m, counter);
 				submarine(board, n, m, counter);
 			}
-
-				//std::cout << "Tem " << counter << " 1's \n";
-				versaoFinal( board,  n,  m);//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				versaoFinal( board,  n,  m);//Atualizando o puzzle para os numeros descritos no tutorial
 				if(counter == 20)
 				{	
 					for( j=0 ; j< num ; j++ )
     				{
-					//std::cout << ">>> Matriz " << j << ":\n";
         				for ( k=0 ; k < n+1 ; k++ )
        				 	{
            					 for ( l=0 ; l <m+1; l++ )
            					 {
-           			 			lista2[i][k][l] = board[k][l];
+           			 			lista2[i][k][l] = board[k][l];//Iguala o Vector[i] para o puzzle atual
        						 }
        					}
     				}
-    				//printboard(board, n, m);
+    				
     			}
-					break;//	Ve.push_back(board);
+					break;
 				}
 			}
 			
@@ -94,32 +90,32 @@ int main()
        				 	{
            					 for ( l=1 ; l < m+1; l++ )
            					 {
-           			 			outFile<<lista2[j][k][l]<<' ';
+           			 			outFile<<lista2[j][k][l]<<' ';//Imprime os puzzles no arquivo
        						 }
        						 outFile<<'\n';
        					}
        					
     				}
     	outFile.close();
-    	contadorDeBarcos( board,  n,  m);
-    	printboard( board,  n,  m);
-    cout<<"Battleship Puzzle\nUtilize os comandos\nX (cord1) (cord2)\nSendo X o tipo de barco\n";
-    cout<<"1 = *\n3 = <\n4 = >\n5 = ^\n6 = v\n7 = ~\n";
-    printboard3( board2, board,  n,  m);
- 	while(1)
+    	contadorDeBarcos( board,  n,  m);//conta os barcos para colocar o numeros nas laterais 
+    
+    //printboard3(board,n,m);PARA IMPRIMIR O GABARITO DO PUZZLE ANTES
+ 	for(auto p(0) ; p<=(m*n) ; p++ )
  	{
 
- 		printboard2( board2, board,  n,  m);//att pra colocar o n de barcos ao redor
+ 		printboard2( board2, board,  n,  m);
  		cout<<"Digite o número e as cordenadas:\n";
  		cin>>x>>cord1>>cord2;
  		board2[cord1][cord2] = x;
  	}
- 	//COMPARA BOARD 1 COM 2
+ 	if(compara( board2, board,  n,  m))
+ 	{
+ 		cout<<"Yee.....Você acertou\n";
+ 	}
+ 		else 
+ 		{	cout<<"Você errou, esse seria o correto:\n";
+ 			printboard3(board,n,m);
+ 		}
 	return 0;
 }
-/*
-v[18];
-for( k=1 ; k < n+1 ; k++ )
-       if(board[i][j]==1)
-       	v[k]++;
-       	*/
+

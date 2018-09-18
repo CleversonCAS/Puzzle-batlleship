@@ -404,7 +404,8 @@ void printboard2(int board[18][18],int board2[18][18], int n, int m)
 	for(i = 1; i < n+2; ++i)
 	{
 		for(j = 1; j < m+2; ++j)
-		{
+		{	
+			
 			if (i==n+1)
 			{
 				cout<<board2[i][j]<<' ';
@@ -444,9 +445,11 @@ void printboard2(int board[18][18],int board2[18][18], int n, int m)
 			cout<< '~' <<' ';
 			}
 
+			
 		}
 		cout<<'\n';
 	}
+	
 
 }
 void igualarmatrzies(int board1[18][18],int board2[18][18], int n, int m)
@@ -491,4 +494,74 @@ void contadorDeBarcos(int board[18][18], int n, int m)
        		 c=0;
         }
 }
+int compara(int board1[18][18],int board2[18][18], int n, int m)
+{
+	int c=0;
+	int k,l;
+	for ( k=1 ; k < n+1 ; k++ )
+       	{
+        for ( l=1 ; l < m+1; l++ )
+           	 {
+           		if(board1[k][l] == board2[k][l])
+           		{
+           			c++;
+           		}	
+       		 }
+        }
+    if(c==(n*m))
+    {
+    	return 1;
+    }
+    else
+    {
+    	return 0;
+    }
+
+}
+void printboard3(int board[18][18], int n, int m)
+{
+	int i, j;
+	for(i = 1; i < n+1; ++i)
+	{
+		for(j = 1; j < m+1; ++j)
+		{	
+			if(board[i][j]==2)
+			{
+			cout<< '~' <<' ';
+			}
+			if(board[i][j]==0)
+			{
+			cout<< '~' <<' ';
+			}
+			if(board[i][j]==1)
+			{
+			cout<< '*' <<' ';
+			}
+			if(board[i][j]==3)
+			{
+			cout<< '<' <<' ';
+			}
+			if(board[i][j]==4)
+			{
+			cout<< '>' <<' ';
+			}
+			if(board[i][j]==5)
+			{
+			cout<< '^' <<' ';
+			}
+			if(board[i][j]==6)
+			{
+			cout<< 'v' <<' ';
+			}
+			if(board[i][j]==7)
+			{
+			cout<< '~' <<' ';
+			}	
+		}
+		cout<<'\n';
+	}
+	
+
+}
+
 

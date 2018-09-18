@@ -1,1 +1,1 @@
-# Battleship
+Para compilar basta acessar a pastar do arquivo no terminal e digitar make && ./a.out
