@@ -359,3 +359,42 @@ void submarine(int board[25][25], int n, int m, int &counter){
 		}
 	}
 }
+void versaoFinal(int board[25][25], int n, int m) /////////////////////////////////////////////////////////////////////////////////////////////////////////
+{
+	int i, j;
+	//3 = <
+	//4 = >
+	//5 = ^
+	//6 = v
+	for(i = 1; i < n+1; ++i)
+	{
+		for(j = 1; j < m+1; ++j)
+		{
+			if(board[i][j]==1)
+			{
+				if(board[i+1][j]==2 && board[i-1][j]==2 && board[i][j+1]==2 && board[i][j-1]==2)//para submarino
+				{
+					board[i][j]=1;
+					continue;
+				}
+				if(board[i+1][j]==2 && board[i-1][j]==2 && board[i][j-1]==2)//Para 3 = <
+				{
+					board[i][j]=3;
+				}
+				if(board[i+1][j]==2 && board[i-1][j]==2 && board[i][j+1]==2 )//Para 4 = >
+				{
+					board[i][j]=4;
+				}
+				if(board[i-1][j]==2 && board[i][j+1]==2 && board[i][j-1]==2)//Para 5 = ^
+				{
+					board[i][j]=5;
+				}
+				if(board[i+1][j]==2 && board[i][j+1]==2 && board[i][j-1]==2)//Para 6 = v
+				{
+					board[i][j]=6;
+				}
+			}
+		}
+	}
+
+}
